@@ -12,6 +12,16 @@ var proximoId = 1;
 
 app.MapPost("/pedidos", (Pedido novoPedido) =>
 {
+    var quantidadeNoDia = pedidos.Count(p =>
+    p.DataEntrega.Date == novoPedido.DataEntrega.Date);
+    //Percorre a quantidade de pedidos cadastrados e contabiliza na variável a quantidade de pedidos daquele dia, comparando se cada pedido novo também está naquela data ou não.
+
+    if (quantidadeNoDia >= 5)
+    //Verifica se no dia x, já existe a quantidade máxima de 5 encomendas.
+    {
+        return Results.Conflict("O limite de 5 encomendas para este dia já foi atingido");
+    }
+
     novoPedido.Id = proximoId;
     proximoId++;
 
