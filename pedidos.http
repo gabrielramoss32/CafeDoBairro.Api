@@ -1,0 +1,34 @@
+@baseUrl = http://localhost:5062
+
+//Base de testes da API, servindo para testar cada endpoint e requisição atráves da extensão REST client.
+
+###Cadastrar um pedido
+POST {{baseUrl}}/pedidos
+Content-Type: application/json
+
+{
+  "nomeCliente": "Arthur",
+  "telefone": "73999990000",
+  "produto": "Café coado",
+  "dataEntrega": "2026-11-01T14:00:00",
+  "status": "Recebida"
+}
+
+### Listar todos os pedidos
+GET {{baseUrl}}/pedidos
+
+### Atualizar um pedido
+//Possui os dados que serão atríbuidos ao JSON do id direcionado
+PUT {{baseUrl}}/pedidos/1
+Content-Type: application/json
+
+{
+  "nomeCliente": "Joao",
+  "telefone": "73999990000",
+  "produto": "Bolo de abacaxi",
+  "dataEntrega": "2026-11-02T15:00:00",
+  "status": "Em preparo"
+}
+
+### Excluir um pedido
+DELETE {{baseUrl}}/pedidos/1
