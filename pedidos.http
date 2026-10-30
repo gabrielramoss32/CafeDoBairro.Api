@@ -3,6 +3,7 @@
 //Base de testes da API, servindo para testar cada endpoint e requisição atráves da extensão REST client.
 
 ###Cadastrar um pedido
+//Formato da data: ano/mês/dia
 POST {{baseUrl}}/pedidos
 Content-Type: application/json
 
@@ -11,7 +12,7 @@ Content-Type: application/json
   "telefone": "73999990000",
   "produto": "Café coado",
   "dataEntrega": "2026-11-01T14:00:00",
-  "status": "Recebida"
+  "status": "Em PrEpARo"
 }
 
 ### Listar todos os pedidos
@@ -31,4 +32,4 @@ Content-Type: application/json
 }
 
 ### Excluir um pedido
-DELETE {{baseUrl}}/pedidos/1
+DELETE {{baseUrl}}/pedidos/3
