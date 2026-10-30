@@ -9,6 +9,17 @@ var app = builder.Build();
 var pedidos = new List<Pedido>();
 var proximoId = 1;
 
+//Coleção dos produtos disponíveis em tipo string
+var produtosDisponiveis = new HashSet<string>
+{
+    "café coado",
+    "pão de queijo",
+    "bolo de chocolate",
+    "bolo de cenoura",
+    "bolo de milho",
+    "bolo de aipim"
+};
+
 app.MapPost("/pedidos", (Pedido novoPedido) =>
 {
     //Verifica se há um campo vazio no nome, telefone, produto ou status.
@@ -22,13 +33,20 @@ app.MapPost("/pedidos", (Pedido novoPedido) =>
 
     string statusNormalizado = novoPedido.Status.Trim().ToLower();
     //Remove os caracteres de espaço da string e normaliza para minúsculo, atribuindo à uma nova variável
-    //Tal ordem é realizada para comparar se o status recebido é igual a um dos três status permitidos.
 
     if (statusNormalizado != "recebida" && statusNormalizado != "em preparo" && statusNormalizado != "entregue")
     {
         return Results.BadRequest("O status de entrega não corresponde à nenhum dos tipos permitidos");
     }
     novoPedido.Status = char.ToUpper(statusNormalizado[0]) + statusNormalizado.Substring(1);
+
+    string produtoNormalizado = novoPedido.Produto.Trim().ToLower();
+
+    if (!produtosDisponiveis.Contains(produtoNormalizado))
+    {
+        return Results.BadRequest("O produto informado não está disponível no catálogo");
+    }
+    novoPedido.Produto = produtoNormalizado;
 
     var quantidadeNoDia = pedidos.Count(p =>
     p.DataEntrega.Date == novoPedido.DataEntrega.Date);
@@ -76,6 +94,13 @@ app.MapPut("/pedidos/{id}", (int id, Pedido pedidoAtualizado) =>
         return Results.BadRequest("O status de entrega não corresponde à nenhum dos tipos permitidos");
     }
     pedidoAtualizado.Status = char.ToUpper(statusNormalizado[0]) + statusNormalizado.Substring(1);
+
+    string produtoNormalizado = pedidoAtualizado.Produto.Trim().ToLower();
+    if (!produtosDisponiveis.Contains(produtoNormalizado))
+    {
+        return Results.BadRequest("O produto informado não está disponível no catálogo");
+    }
+    pedidoAtualizado.Produto = produtoNormalizado;
 
     pedidoExistente.NomeCliente = pedidoAtualizado.NomeCliente;
     pedidoExistente.Telefone = pedidoAtualizado.Telefone;
