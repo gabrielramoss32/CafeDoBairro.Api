@@ -20,7 +20,7 @@ GET {{baseUrl}}/pedidos
 
 ### Atualizar um pedido
 //Possui os dados que serão atríbuidos ao JSON do id direcionado
-PUT {{baseUrl}}/pedidos/6
+PUT {{baseUrl}}/pedidos/1
 Content-Type: application/json
 
 {
@@ -32,4 +32,4 @@ Content-Type: application/json
 }
 
 ### Excluir um pedido
-DELETE {{baseUrl}}/pedidos/2
+DELETE {{baseUrl}}/pedidos/1
