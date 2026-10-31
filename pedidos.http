@@ -11,8 +11,8 @@ Content-Type: application/json
   "nomeCliente": "Arthur",
   "telefone": "73999990000",
   "produto": "Café coado",
-  "dataEntrega": "2026-11-01T14:00:00",
-  "status": "Em PrEpARo"
+  "dataEntrega": "2026-11-01T15:00:00",
+  "status": "Recebida"
 }
 
 ### Listar todos os pedidos
@@ -20,16 +20,16 @@ GET {{baseUrl}}/pedidos
 
 ### Atualizar um pedido
 //Possui os dados que serão atríbuidos ao JSON do id direcionado
-PUT {{baseUrl}}/pedidos/1
+PUT {{baseUrl}}/pedidos/6
 Content-Type: application/json
 
 {
-  "nomeCliente": "Joao",
+  "nomeCliente": "Kaio",
   "telefone": "73999990000",
-  "produto": "Bolo de abacaxi",
+  "produto": "Café coado",
   "dataEntrega": "2026-11-02T15:00:00",
   "status": "Em preparo"
 }
 
 ### Excluir um pedido
-DELETE {{baseUrl}}/pedidos/3
+DELETE {{baseUrl}}/pedidos/2

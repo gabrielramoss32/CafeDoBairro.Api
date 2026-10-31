@@ -31,6 +31,12 @@ app.MapPost("/pedidos", (Pedido novoPedido) =>
         return Results.BadRequest("Certifique-se de preencher todos os campos necessários");
     }
 
+    //Verifica se a data informada é uma data que já passou.
+    if (novoPedido.DataEntrega.Date < DateTime.Now.Date)
+    {
+        return Results.BadRequest("A data de entrega não pode ser uma data anterior ao dia atual");
+    }
+
     string statusNormalizado = novoPedido.Status.Trim().ToLower();
     //Remove os caracteres de espaço da string e normaliza para minúsculo, atribuindo à uma nova variável
 
@@ -88,6 +94,11 @@ app.MapPut("/pedidos/{id}", (int id, Pedido pedidoAtualizado) =>
         return Results.BadRequest("Certifique-se de preencher todos os campos necessários");
     }
 
+    if (pedidoAtualizado.DataEntrega.Date < DateTime.Now.Date)
+    {
+        return Results.BadRequest("A data de entrega não pode ser uma data anterior ao dia atual");
+    }
+
     string statusNormalizado = pedidoAtualizado.Status.Trim().ToLower();
     if (statusNormalizado != "recebida" && statusNormalizado != "em preparo" && statusNormalizado != "entregue")
     {
@@ -101,6 +112,17 @@ app.MapPut("/pedidos/{id}", (int id, Pedido pedidoAtualizado) =>
         return Results.BadRequest("O produto informado não está disponível no catálogo");
     }
     pedidoAtualizado.Produto = produtoNormalizado;
+
+    var quantidadeNoDia = pedidos.Count(p => 
+    p.DataEntrega.Date == pedidoAtualizado.DataEntrega.Date && p.Id != id
+    );
+    //Percorre a quantidade de pedidos naquele dia e desconsidera o pedido atual, já que ele está sendo atualizado
+    //Isso previne que a pessoa atualize a data de um pedido para uma data com a agenda máxima.
+
+    if (quantidadeNoDia >= 5)
+    {
+        return Results.Conflict("O limite de 5 encomendas para este dia já foi atingido, coloque para outro dia");
+    }
 
     pedidoExistente.NomeCliente = pedidoAtualizado.NomeCliente;
     pedidoExistente.Telefone = pedidoAtualizado.Telefone;
