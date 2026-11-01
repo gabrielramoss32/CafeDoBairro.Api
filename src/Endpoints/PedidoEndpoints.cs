@@ -60,6 +60,11 @@ public static class PedidoEndpoints
                 return Results.BadRequest("O telefone deve conter exatamente 11 dígitos numéricos");
             }
 
+            if (novoPedido.Telefone[2] != '9')
+            {
+                return Results.BadRequest("O telefone deve possuir o número 9 após o DDD.");
+            }
+
             var quantidadeNoDia = pedidos.Count(p =>
             p.DataEntrega.Date == novoPedido.DataEntrega.Date);
             //Percorre a quantidade de pedidos cadastrados e contabiliza na variável a quantidade de pedidos daquele dia
@@ -122,6 +127,11 @@ public static class PedidoEndpoints
             if (pedidoAtualizado.Telefone.Length != 11 || !pedidoAtualizado.Telefone.All(char.IsDigit))
             {
                 return Results.BadRequest("O telefone deve conter exatamente 11 dígitos numéricos (DDD + número).");
+            }
+
+            if (pedidoAtualizado.Telefone[2] != '9')
+            {
+                return Results.BadRequest("O telefone deve possuir o número 9 após o DDD.");
             }
 
             var quantidadeNoDia = pedidos.Count(p => 
