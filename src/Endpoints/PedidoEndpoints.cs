@@ -6,8 +6,8 @@ public static class PedidoEndpoints
 {
     public static void MapPedidoEndpoints(this WebApplication app)
     {
-        var pedidos = new List<Pedido>();
-        var proximoId = 1;
+        var pedidos = new List<Pedido>(); //Lista que armazena os pedidos em formato JSON.
+        var proximoId = 1; //ID inicial do pedido, é incrementado a cada POST.
 
         //Coleção dos produtos disponíveis em tipo string
         var produtosDisponiveis = new HashSet<string>
@@ -37,23 +37,24 @@ public static class PedidoEndpoints
                 return Results.BadRequest("A data de entrega não pode ser uma data anterior ao dia atual");
             }
 
+            //Verificação do status do pedido, avaliando se está nas 3 condições definidas.
+            //A comparação é feita com o status recebido sendo normalizado para minúsculo e sem espaços adicionais, ao final, o status recebido é padronizado.
             string statusNormalizado = novoPedido.Status.Trim().ToLower();
-            //Remove os caracteres de espaço da string e normaliza para minúsculo, atribuindo à uma nova variável
-
             if (statusNormalizado != "recebida" && statusNormalizado != "em preparo" && statusNormalizado != "entregue")
             {
                 return Results.BadRequest("O status de entrega não corresponde à nenhum dos tipos permitidos");
             }
             novoPedido.Status = char.ToUpper(statusNormalizado[0]) + statusNormalizado.Substring(1);
 
+            //Sistema semelhante ao descrito acima, porém, verifica-se se o pedido enviado está contido na coleção dos produtos disponíveis.
             string produtoNormalizado = novoPedido.Produto.Trim().ToLower();
-
             if (!produtosDisponiveis.Contains(produtoNormalizado))
             {
                 return Results.BadRequest("O produto informado não está disponível no catálogo");
             }
             novoPedido.Produto = produtoNormalizado;
 
+            //Verifica se o telefone tem 11 dígitos (DDD[2] + 9[1] + restante[8]) e se há letras presentes.
             if (novoPedido.Telefone.Length != 11 || !novoPedido.Telefone.All(char.IsDigit))
             {
                 return Results.BadRequest("O telefone deve conter exatamente 11 dígitos numéricos");
@@ -126,7 +127,7 @@ public static class PedidoEndpoints
             var quantidadeNoDia = pedidos.Count(p => 
             p.DataEntrega.Date == pedidoAtualizado.DataEntrega.Date && p.Id != id
             );
-            //Percorre a quantidade de pedidos naquele dia e desconsidera o pedido atual, já que ele está sendo atualizado
+            //Percorre a quantidade de pedidos naquele dia e desconsidera o pedido atual, já que ele está sendo atualizado,
             //Isso previne que a pessoa atualize a data de um pedido para uma data com a agenda máxima.
 
             if (quantidadeNoDia >= 5)
@@ -154,7 +155,7 @@ public static class PedidoEndpoints
 
             pedidos.Remove(pedidoExistente);
 
-            return Results.Ok();
+            return Results.Ok("Pedido excluído");
         });
     }
 }

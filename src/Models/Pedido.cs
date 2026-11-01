@@ -1,6 +1,6 @@
 namespace CafeDoBairro.Api.Models;
 
-//Classe referente às variáveis que compõem a encomenda, em que seu status inicial é "Recebido".
+//Classe referente às variáveis que compõem a encomenda, em que seu status inicial é "Recebida".
 
 public class Pedido
 {
