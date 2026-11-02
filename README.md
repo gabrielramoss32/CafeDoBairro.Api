@@ -81,7 +81,7 @@ CafeDoBairro.Api/
 | Bolo de milho |
 | Bolo de aipim |
 
-Caso o campo "produto" não ser um desses produtos, a API irá tratar como situação inválida, como dito em [🤖 Validações e tratamento de erros](Validações-e-tratamento-de-erros).
+Caso o campo "produto" não ser um desses produtos, a API irá tratar como situação inválida, como dito na seção de tratamento de erros.
 
 ## 🖋️ Modelo do pedido
 
@@ -152,7 +152,7 @@ Abra o arquivo pedidos.http, localizado na raiz do projeto.
 
 ### Método 2: Terminal/PowerShell
 
-Com a API já em execução conforme [🔧 Como executar](como-executar), abra um segundo terminal para realizar as requisições HTTP.
+Com a API já em execução conforme a seção referente, abra um segundo terminal para realizar as requisições HTTP.
 
 1. Cadastrar um pedido (POST)
 ```bash
@@ -173,7 +173,7 @@ Com a API já em execução conforme [🔧 Como executar](como-executar), abra u
 ```
 
 3. Atualizar um pedido (PUT)
-    ```bash
+```bash
         $body = @{
         nomeCliente = "Jose"
         telefone = "73987654321"
