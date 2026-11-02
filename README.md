@@ -141,8 +141,7 @@ A API estará disponível em **http://localhost:5062**. Para encerrar, pressione
 ```
    Mantenha o terminal aberto durante os testes.
 
-3. Envie as requisições
-Abra o arquivo pedidos.http, localizado na raiz do projeto.
+3. Envie as requisições: abra o arquivo pedidos.http, localizado na raiz do projeto.
 
    A extensão REST Client disponibilizará a opção Send Request acima de cada requisição HTTP.
   
