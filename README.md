@@ -1,4 +1,4 @@
-# ☕ Café do Bairo - API
+# ☕ Café do Bairro - API
 
 API desenvolvida como parte de um processo seletivo para a Empresa Júnior de Ciência da Computação da minha universidade, com o objetivo de organizar e facilitar o controle de encomendas recebidas pela cafeteria.
 
@@ -7,9 +7,9 @@ API desenvolvida como parte de um processo seletivo para a Empresa Júnior de Ci
 - C#
 - .NET 10
 - ASP.NET Core Web API
-- MinimalAPIS
+- Minimal APIS
 - HTTP/JSON
-- Git/Github
+- Git/GitHub
 
 ## 📄 Funcionalidades
 
@@ -36,7 +36,7 @@ CafeDoBairro.Api/
 │   │   ├── appsettings.json
 │   │   └── appsettings.Development.json
 │   │
-│   ├── Models/                            # Modelos do projeto de classe    
+│   ├── Models/                            # Modelos de dados  
 │   │   └── Pedido.cs                      # Declaração da classe e elementos que compõem o pedido
 │   │
 │   ├── Endpoints/                         # Endpoints do projeto
@@ -81,7 +81,7 @@ CafeDoBairro.Api/
 | Bolo de milho |
 | Bolo de aipim |
 
-Caso o campo "produto" não ser um desses produtos, a API irá tratar como situação inválida, como dito na seção de tratamento de erros.
+Caso o campo "produto" não ser um desses produtos, a API irá tratar como situação inválida, como dito em [Validações e tratamento de erros](#-validações-e-tratamento-de-erros).
 
 ## 🖋️ Modelo do pedido
 
@@ -117,7 +117,7 @@ Caso o campo "produto" não ser um desses produtos, a API irá tratar como situa
 ```bash
    git clone https://github.com/gabrielramoss32/CafeDoBairro.Api.git
    cd CafeDoBairro.Api
-   git checkout refactor/organizacao-pastas
+   git checkout main
 ```
 
 2. Restaure as dependências:
@@ -152,7 +152,7 @@ Abra o arquivo pedidos.http, localizado na raiz do projeto.
 
 ### Método 2: Terminal/PowerShell
 
-Com a API já em execução conforme a seção referente, abra um segundo terminal para realizar as requisições HTTP.
+Com a API já em execução conforme [Como executar](#-como-executar), abra um segundo terminal para realizar as requisições HTTP.
 
 1. Cadastrar um pedido (POST)
 ```bash
@@ -192,4 +192,4 @@ Com a API já em execução conforme a seção referente, abra um segundo termin
 
 **Observações:**
 - Mantenha a API em execução no primeiro terminal enquanto realiza os testes no segundo;
-- Certifique-se de preencher o id solicitado nas requisições PUT e DELETE.
+- Certifique-se de preencher o id solicitado nas requisições PUT e DELETE trocando {id} pelo número.
